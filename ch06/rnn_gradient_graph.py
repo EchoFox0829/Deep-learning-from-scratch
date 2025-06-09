@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-N = 2  # Number of mini-batches
-H = 3  # Number of nodes in RNN layer
+N = 2  # Mini-batch size
+H = 3  # Dimension of hidden state vector
 T = 20  # Length of time series data
 
 dh = np.ones((N, H))
