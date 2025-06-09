@@ -27,7 +27,7 @@ class SimpleRnnlm:
         self.loss_layer = TimeSoftmaxWithLoss()
         self.rnn_layer = self.layers[1]
 
-        # Collect all weights and gradients into arrays
+        # Collect all weights and gradients in list
         self.params, self.grads = [], []
         for layer in self.layers:
             self.params += layer.params
