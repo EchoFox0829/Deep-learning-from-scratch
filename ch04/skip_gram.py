@@ -1,6 +1,6 @@
 # coding: utf-8
-import sys, os
-sys.path.append(os.pardir)  # Settings to import files from parent directory
+import sys
+sys.path.append('..')  # Settings to import files from parent directory
 from common.layers import *
 from ch04.negative_sampling_layer import NegativeSamplingLoss
 

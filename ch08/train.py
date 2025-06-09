@@ -1,6 +1,6 @@
 # coding: utf-8
-import sys, os
-sys.path.append(os.pardir)
+import sys
+sys.path.append('..')
 import numpy as np
 import matplotlib.pyplot as plt
 from dataset import sequence
@@ -13,11 +13,11 @@ from ch07.peeky_seq2seq import PeekySeq2seq
 
 
 # Load data
-(x_train, t_train), (x_val, t_val) = sequence.load_data('date.txt')
+(x_train, t_train), (x_test, t_test) = sequence.load_data('date.txt')
 char_to_id, id_to_char = sequence.get_vocab()
 
 # Reverse input text
-x_train, x_val = x_train[:, ::-1], x_val[:, ::-1]
+x_train, x_test = x_train[:, ::-1], x_test[:, ::-1]
 
 # Hyperparameter settings
 vocab_size = len(char_to_id)
@@ -40,13 +40,13 @@ for epoch in range(max_epoch):
                 batch_size=batch_size, max_grad=max_grad)
 
     correct_num = 0
-    for i in range(len(x_val)):
-        question, correct = x_val[[i]], t_val[[i]]
-        verbos = i < 10
+    for i in range(len(x_test)):
+        question, correct = x_test[[i]], t_test[[i]]
+        verbose = i < 10
         correct_num += eval_seq2seq(model, question, correct,
-                                    id_to_char, verbos, is_reverse=True)
+                                    id_to_char, verbose, is_reverse=True)
 
-    acc = float(correct_num) / len(x_val)
+    acc = float(correct_num) / len(x_test)
     acc_list.append(acc)
     print('val acc %.3f%%' % (acc * 100))
 
