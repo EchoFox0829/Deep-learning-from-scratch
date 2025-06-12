@@ -1,6 +1,6 @@
 # coding: utf-8
 import sys
-sys.path.append('..')  # Settings to import files from parent directory
+sys.path.append('..')
 import numpy as np
 from dataset import sequence
 import matplotlib.pyplot as plt
