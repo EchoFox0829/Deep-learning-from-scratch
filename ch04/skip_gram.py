@@ -21,7 +21,7 @@ class SkipGram:
             layer = NegativeSamplingLoss(W_out, corpus, power=0.75, sample_size=5)
             self.loss_layers.append(layer)
 
-        # Collect all weights and gradients into arrays
+        # Collect all weights and gradients in list
         layers = [self.in_layer] + self.loss_layers
         self.params, self.grads = [], []
         for layer in layers:

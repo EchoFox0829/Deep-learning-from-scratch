@@ -1,6 +1,6 @@
 # coding: utf-8
 import sys
-sys.path.append('..')  # 親ディレクトリのファイルをインポートするための設定
+sys.path.append('..')  # Setting to import files from parent directory
 import numpy as np
 from common.layers import Affine, Sigmoid, SoftmaxWithLoss
 
@@ -9,7 +9,7 @@ class TwoLayerNet:
     def __init__(self, input_size, hidden_size, output_size):
         I, H, O = input_size, hidden_size, output_size
 
-        # Initialize weights
+        # Initialize weights and bias
         W1 = 0.01 * np.random.randn(I, H)
         b1 = np.zeros(H)
         W2 = 0.01 * np.random.randn(H, O)
@@ -23,7 +23,7 @@ class TwoLayerNet:
         ]
         self.loss_layer = SoftmaxWithLoss()
 
-        # Collect all weights and gradients into arrays
+        # Collect all weights and gradients in list
         self.params, self.grads = [], []
         for layer in self.layers:
             self.params += layer.params

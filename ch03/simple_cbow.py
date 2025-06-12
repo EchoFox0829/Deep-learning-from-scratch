@@ -19,7 +19,7 @@ class SimpleCBOW:
         self.out_layer = MatMul(W_out)
         self.loss_layer = SoftmaxWithLoss()
 
-        # Collect all weights and gradients into arrays
+        # Collect all weights and gradients in list
         layers = [self.in_layer0, self.in_layer1, self.out_layer]
         self.params, self.grads = [], []
         for layer in layers:

@@ -29,10 +29,11 @@ model = Rnnlm(vocab_size, wordvec_size, hidden_size)
 optimizer = SGD(lr)
 trainer = RnnlmTrainer(model, optimizer)
 
+# Apply gradient clipping and train
 trainer.fit(xs, ts, max_epoch, batch_size, time_size, max_grad)
 trainer.plot(ylim=(0, 500))
 
-# Evaluation on training and test data
+# Evaluate on test data
 model.reset_state()
 ppl_test = eval_perplexity(model, corpus_test)
 print('test perplexity: ', ppl_test)

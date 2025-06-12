@@ -19,7 +19,7 @@ class SimpleSkipGram:
         self.loss_layer1 = SoftmaxWithLoss()
         self.loss_layer2 = SoftmaxWithLoss()
 
-        # Collect all weights and gradients into arrays
+        # Collect all weights and gradients in list
         layers = [self.in_layer, self.out_layer]
         self.params, self.grads = [], []
         for layer in layers:

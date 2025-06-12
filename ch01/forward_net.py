@@ -24,7 +24,7 @@ class TwoLayerNet:
     def __init__(self, input_size, hidden_size, output_size):
         I, H, O = input_size, hidden_size, output_size
 
-        # Initialize weights
+        # Initialize weights and bias
         W1 = np.random.randn(I, H)
         b1 = np.random.randn(H)
         W2 = np.random.randn(H, O)
@@ -37,7 +37,7 @@ class TwoLayerNet:
             Affine(W2, b2)
         ]
 
-        # Collect all weights into array
+        # Collect all weights in list
         self.params = []
         for layer in self.layers:
             self.params += layer.params
