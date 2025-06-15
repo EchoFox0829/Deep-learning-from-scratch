@@ -1,12 +1,12 @@
 # coding: utf-8
 import sys
 sys.path.append('..')
-import numpy as np
 from common import config
 # Remove comment below to run on GPU (requires cupy)
 # ===============================================
 # config.GPU = True
 # ===============================================
+from common.np import *
 import pickle
 from common.trainer import Trainer
 from common.optimizer import Adam

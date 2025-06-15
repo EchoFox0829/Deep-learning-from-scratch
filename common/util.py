@@ -1,5 +1,5 @@
 # coding: utf-8
-import sys
+import sys, os
 sys.path.append('..')
 from common.np import *
 
@@ -140,17 +140,17 @@ def ppmi(C, verbose=False, eps = 1e-8):
 
             if verbose:
                 cnt += 1
-                if cnt % (total//100) == 0:
+                if cnt % (total//100 + 1) == 0:
                     print('%.1f%% done' % (100*cnt/total))
     return M
 
 
 def create_contexts_target(corpus, window_size=1):
-    '''Convert to one-hot representation
+    '''Create contexts and target
 
-    :param words: NumPy array of word IDs
-    :param vocab_size: Vocabulary size
-    :return: NumPy array after conversion to one-hot representation
+    :param corpus: Corpus (list of word IDs)
+    :param window_size: Window size (when window size is 1, context is one word to the left and right)
+    :return:
     '''
     target = corpus[window_size:-window_size]
     contexts = []
@@ -195,7 +195,7 @@ def clip_grads(grads, max_norm):
 def eval_perplexity(model, corpus, batch_size=10, time_size=35):
     print('evaluating perplexity ...')
     corpus_size = len(corpus)
-    total_loss, loss_cnt = 0, 0
+    total_loss = 0
     max_iters = (corpus_size - 1) // (batch_size * time_size)
     jump = (corpus_size - 1) // batch_size
 
@@ -223,7 +223,7 @@ def eval_perplexity(model, corpus, batch_size=10, time_size=35):
     return ppl
 
 
-def eval_seq2seq(model, question, correct, id_to_char, verbos=False, is_reverse=False):
+def eval_seq2seq(model, question, correct, id_to_char, verbose=False, is_reverse=False):
     correct = correct.flatten()
     # Start delimiter
     start_id = correct[0]
@@ -235,17 +235,26 @@ def eval_seq2seq(model, question, correct, id_to_char, verbos=False, is_reverse=
     correct = ''.join([id_to_char[int(c)] for c in correct])
     guess = ''.join([id_to_char[int(c)] for c in guess])
 
-    if verbos:
+    if verbose:
         if is_reverse:
             question = question[::-1]
 
         colors = {'ok': '\033[92m', 'fail': '\033[91m', 'close': '\033[0m'}
         print('Q', question)
         print('T', correct)
+
+        is_windows = os.name == 'nt'
+
         if correct == guess:
-            print(colors['ok'] + '☑' + colors['close'] + ' ' + guess)
+            mark = colors['ok'] + '☑' + colors['close']
+            if is_windows:
+                mark = 'O'
+            print(mark + ' ' + guess)
         else:
-            print(colors['fail'] + '☒' + colors['close'] + ' ' + guess)
+            mark = colors['fail'] + '☒' + colors['close']
+            if is_windows:
+                mark = 'X'
+            print(mark + ' ' + guess)
         print('---')
 
     return 1 if guess == correct else 0
